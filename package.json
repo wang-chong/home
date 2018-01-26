@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/wang-chong/home/issues"
   },
-  "homepage": "https://github.com/wang-chong/home#readme"
+  "homepage": "https://github.com/wang-chong/home#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
 }
