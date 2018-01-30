@@ -17,6 +17,8 @@ module.exports = function (req, res) {
       res.send(true)
     })
   } else {
-    res.send(false)
+    res.status(500).send({
+      error:'用户名为空'
+    })
   }
 }
