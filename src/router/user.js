@@ -8,6 +8,15 @@ const deleteLastUser = require('./../implement/deleteLastUser')
 const updateUser = require('./../implement/updateUser')
 const referUser = require('./../implement/referUser')
 
+router.all('*', function (req, res, next) {
+  //
+  // if (!tk) {
+    // 鉴权失败, 返回
+  // } else {
+    next()
+  // }
+})
+
 // 获取所有用户的信息
 router.get('/allUser', allUser)
 
