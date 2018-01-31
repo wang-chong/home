@@ -11,7 +11,7 @@ module.exports = function (req, res) {
       userId.push(date.getTime())
       return userId.join('')
     })())
-    var sql = 'INSERT INTO `user` (name, user_id) VALUES ("' + userInfo.join('","') + '")'
+    var sql = `INSERT INTO \`user\` (name, user_id) VALUES ("${userInfo.join('","')}")`
     connection.query(sql, function (error, results, fields) {
       if (error) throw error
       res.send(true)
