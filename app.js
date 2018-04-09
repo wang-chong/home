@@ -1,8 +1,10 @@
 const app = require('express')()
 const bodyParser = require('body-parser')
 
-// 解析post请求的数据
+// user模块
 const user = require('./src/router/user.js')
+
+// 解析post请求的数据
 const multer = require('multer')
 // for parsing multipart/form-data
 const upload = multer()

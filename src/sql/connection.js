@@ -5,7 +5,7 @@ var connection = mysql.createConnection({
   password : 'root',
   database : 'vh_user'
 })
- 
+console.log('sql connect')
 connection.connect()
 
 module.exports = connection
