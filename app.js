@@ -13,8 +13,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // for parsing application/json
 app.use(bodyParser.json())
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!')
+app.listen(6666, function () {
+  console.log('Example app listening on port 6666!')
 })
 
 app.use('/user', user)
