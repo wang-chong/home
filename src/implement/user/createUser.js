@@ -1,6 +1,7 @@
 const request = require('request')
-const connection = require('./../sql/connection')
-const Hcore = require('./../common/Hcore')
+
+const connection = require(_src + 'sql/connection')
+const Hcore = require(_src + 'common/Hcore')
 const referUser = require('./referUser')
 
 function getUsersByUserName (res, userName) {

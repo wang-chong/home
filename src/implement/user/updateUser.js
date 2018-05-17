@@ -1,4 +1,4 @@
-const connection = require('./../sql/connection')
+const connection = require(_src + 'sql/connection')
 
 // 更新指定用户的删除标志位为1，软删除
 module.exports = function (req, res) {

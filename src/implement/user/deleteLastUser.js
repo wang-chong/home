@@ -1,4 +1,4 @@
-const connection = require('./../sql/connection')
+const connection = require(_src + 'sql/connection')
 
 module.exports = function (req, res) {
   var sql = 'DELETE FROM `user` ORDER BY create_time desc LIMIT 1'

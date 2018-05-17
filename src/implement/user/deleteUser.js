@@ -1,4 +1,4 @@
-const connection = require('./../sql/connection')
+const connection = require(_src + 'sql/connection')
 
 // 删除指定用户名的数据
 module.exports = function (req, res) {

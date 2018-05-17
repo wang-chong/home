@@ -1,12 +1,8 @@
 const express = require('express')
 const router = express.Router()
-//接口实现部分
-const createUser = require('./../implement/createUser')
-const allUser = require('./../implement/allUser')
-const deleteUser = require('./../implement/deleteUser')
-const deleteLastUser = require('./../implement/deleteLastUser')
-const updateUser = require('./../implement/updateUser')
-const referUser = require('./../implement/referUser')
+
+// 用户模块接口实现
+const user = require('./../implement/user/')
 
 router.all('*', function (req, res, next) {
   //
@@ -18,21 +14,21 @@ router.all('*', function (req, res, next) {
 })
 
 // 获取所有用户的信息
-router.get('/allUser', allUser)
+router.get('/allUser', user.allUser)
 
 // 创建一个用户
-router.post('/createUser', createUser)
+router.post('/createUser', user.createUser)
 
 // 删除一个指定的用户
-router.get('/deleteUser', deleteUser)
+router.get('/deleteUser', user.deleteUser)
 
 // 删除最后一个用户
-router.get('/deleteLastUser', deleteLastUser)
+router.get('/deleteLastUser', user.deleteLastUser)
 
 // 更新指定用户的信息
-router.post('/updateUser', updateUser)
+router.post('/updateUser', user.updateUser)
 
 // 查询用户信息
-router.get('/referUser', referUser)
+router.get('/referUser', user.referUser)
 
 module.exports = router
