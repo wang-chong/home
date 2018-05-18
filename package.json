@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/wang-chong/home#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
     "multer": "^1.3.0",
     "mysql": "^2.15.0",
