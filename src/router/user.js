@@ -1,6 +1,6 @@
 const express = require('express')
 const auth = require(_src + 'auth/')
-const Hcore = require(_src + 'common/Hcore')
+const Hcore = require(_src + 'utils/Hcore')
 const router = express.Router()
 
 // 用户模块接口实现
@@ -9,12 +9,13 @@ const user = require('./../implement/user/')
 router.all('*', function (req, res, next) {
   // 鉴权
   if (auth(req.cookies)) {
-    next()
+    next();
+  } else {
+    Hcore.sendError({
+      msg: '没有tk或者tk过期',
+      res: res
+    })
   }
-  Hcore.sendError({
-	  msg: '没有tk或者tk过期',
-	  res: res
-	})
 })
 
 // 获取所有用户的信息
