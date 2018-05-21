@@ -96,7 +96,7 @@ module.exports = {
     });
   },
   download (req, res) {
-    var id = req.params[0];
+    var id = req.params.id;
     var sql = `SELECT url FROM file WHERE id=${id}`;
     connection.query(sql, function (error, results, fields) {
       if (error) throw error;

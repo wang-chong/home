@@ -8,6 +8,6 @@ const file = require('./../implement/common/file');
 router.post('/upload', file.upload)
 
 // 根据上传文件时的id去查询文件信息
-router.get('/download/*', file.download)
+router.get('/download/:id', file.download)
 
 module.exports = router
