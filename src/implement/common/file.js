@@ -94,5 +94,13 @@ module.exports = {
         });
       }
     });
+  },
+  download (req, res) {
+    var id = req.params[0];
+    var sql = `SELECT url FROM file WHERE id=${id}`;
+    connection.query(sql, function (error, results, fields) {
+      if (error) throw error;
+      res.send(results[0] || {url: null});
+    });
   }
 }
