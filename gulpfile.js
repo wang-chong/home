@@ -8,6 +8,9 @@ const babel = require('gulp-babel');
 const clean = require('gulp-clean');
 // gulp任务按照指定顺序执行
 const sequence = require('gulp-sequence');
+// 压缩dist文件夹为zip模式，方便上传到服务器
+const gzip = require('gulp-gzip');
+const tar = require('gulp-tar');
 
 // 配置需要处理的文件目录和转码之后文件的存放目录
 const paramConfig = {
@@ -49,6 +52,11 @@ gulp.task('copy', () =>
   gulp.src(['*static/**/*.*', '*public/**/*.*'])
     .pipe(gulp.dest(paramConfig.dest)));
 
-gulp.task('default', ['lint'], sequence('clean-dist', ['babel', 'copy']), () => {
-  // lint任务成功执行之后执行这个方法
-});
+// 压缩打包dist文件夹
+gulp.task('gzip', () =>
+  gulp.src(['dist/**/*'])
+    .pipe(tar('node-home.tar'))
+    .pipe(gzip())
+    .pipe(gulp.dest(paramConfig.dest)));
+
+gulp.task('default', ['lint'], sequence('clean-dist', ['babel', 'copy'], 'gzip'));

@@ -1,22 +1,17 @@
 import 'babel-polyfill';
-
 // 解析请求数据
 import bodyParser from 'body-parser';
-
 // 转换请求带来的cookie为对象
 import cookieParser from 'cookie-parser';
-
 import express from 'express';
-
 // 各个模块加载
 // user模块
 import user from './src/router/user';
 // common模块
 import common from './src/router/common';
-
 // 加载全局配置
 import globalConfig from './src/global/';
-
+// 初始化全局变量
 globalConfig();
 
 const app = express();
