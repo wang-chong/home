@@ -60,3 +60,7 @@ typings/
 # public folder
 public/
 
+# dist folder
+dist/
+!dist/*.zip
+

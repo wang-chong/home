@@ -7,8 +7,8 @@ const envObj = {
     domain: 'http://www.wchong.com'
   }
 };
-module.exports = function () {
+export default function globalConfig() {
   // 全局变量，指向src目录
-  global._src = process.cwd() + '/src/';
-  global._domain = envObj[env].domain;
+  global.src = `${process.cwd()}/src/`;
+  global.domain = envObj[env].domain;
 }

@@ -1,16 +1,16 @@
 // 接口的具体实现
-const createUser = require('./createUser')
-const allUser = require('./allUser')
-const deleteUser = require('./deleteUser')
-const deleteLastUser = require('./deleteLastUser')
-const updateUser = require('./updateUser')
-const referUser = require('./referUser')
+import createUser from './createUser';
+import allUser from './allUser';
+import deleteUser from './deleteUser';
+import deleteLastUser from './deleteLastUser';
+import updateUser from './updateUser';
+import referUser from './referUser';
 
-module.exports = {
+export default {
   createUser,
   allUser,
   deleteUser,
   deleteLastUser,
   updateUser,
   referUser
-}
+};
