@@ -1,9 +1,19 @@
 import connection from './../../sql/connection';
 
-export default function (req, res) {
-  const sql = 'SELECT `name` AS userName,`user_id` AS userId FROM `user` where `delete`=0';
-  connection.query(sql, (error, results) => {
-    if (error) throw error;
-    res.send(results);
+function getAllUser() {
+  const sql = 'SELECT `name` AS userName,`user_id` AS userId FROM `user1` where `delete`=0';
+  return new Promise((resolve) => {
+    connection.query(sql, (error, results) => {
+      if (error) {
+        console.log(error);
+        resolve('查询出错');
+      }
+      resolve(results);
+    });
   });
+}
+
+export default async function (req, res) {
+  const result = await getAllUser();
+  res.send(result);
 }
