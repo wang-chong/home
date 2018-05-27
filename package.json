@@ -4,8 +4,7 @@
   "description": "node.js for webapp vue-home",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js --exec babel-node",
+    "debug": "nodemon index.js --exec babel-node --inspect-brk",
     "build": "gulp",
     "preview": "node dist/index.js"
   },
@@ -47,6 +46,7 @@
     "gulp-clean": "^0.4.0",
     "gulp-eslint": "^4.0.2",
     "gulp-gzip": "^1.4.2",
+    "gulp-rename": "^1.2.3",
     "gulp-sequence": "^1.0.0",
     "gulp-tar": "^2.1.0",
     "nodemon": "^1.17.5"
