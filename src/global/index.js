@@ -1,4 +1,5 @@
-const env = 'dev';
+import env from './../../config/env';
+
 const envObj = {
   dev: {
     domain: 'http://localhost:3000'

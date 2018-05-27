@@ -11,6 +11,8 @@ const sequence = require('gulp-sequence');
 // 压缩dist文件夹为zip模式，方便上传到服务器
 const gzip = require('gulp-gzip');
 const tar = require('gulp-tar');
+// 重命名
+const rename = require('gulp-rename');
 
 // 配置需要处理的文件目录和转码之后文件的存放目录
 const paramConfig = {
@@ -47,9 +49,16 @@ gulp.task('clean-dist', () =>
       force: true
     })));
 
-// 赋值静态文件到dist文件夹下
-gulp.task('copy', () =>
-  gulp.src(['*static/**/*.*', '*public/**/*.*'])
+// 复制静态文件到dist文件夹下
+// gulp.task('copy', () =>
+// gulp.src(['*static/**/*.*', '*public/**/*.*'])
+// .pipe(gulp.dest(paramConfig.dest)));
+
+// 环境相关js拷贝
+gulp.task('env', () =>
+  gulp.src('config/production.js')
+    .pipe(rename('config/env.js'))
+    .pipe(babel())
     .pipe(gulp.dest(paramConfig.dest)));
 
 // 压缩打包dist文件夹
@@ -59,4 +68,4 @@ gulp.task('gzip', () =>
     .pipe(gzip())
     .pipe(gulp.dest(paramConfig.dest)));
 
-gulp.task('default', ['lint'], sequence('clean-dist', ['babel', 'copy'], 'gzip'));
+gulp.task('default', ['lint'], sequence('clean-dist', ['babel', 'env'], 'gzip'));

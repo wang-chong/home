@@ -1,6 +1,5 @@
 // 移动文件需要使用fs模块
 import fs from 'fs';
-
 import multer from 'multer';
 // 公共方法
 import Hcore from './../../utils/Hcore';
@@ -20,7 +19,9 @@ const upload = multer({
 // 将保存地址写入数据库
 function saveToSql(url) {
   return new Promise((resolve, reject) => {
-    const sql = `INSERT INTO \`file\` (url) VALUES ("${url}")`;
+    const stampId = `F${Date.now()}`;
+    const fileId = `${stampId.substring(0, 3)}${stampId.substring(11)}`;
+    const sql = `INSERT INTO file (id, url) VALUES ("${fileId},${url}")`;
     connection.query(sql, (error, results) => {
       if (error) {
         reject(error);
