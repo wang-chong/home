@@ -19,13 +19,14 @@ const upload = multer({
 // 将保存地址写入数据库
 function saveToSql(url) {
   return new Promise((resolve, reject) => {
-    const stampId = `F${Date.now()}`;
+    const stampId = `F${Date.now()}${Math.floor(Math.random() * 10)}`;
     const fileId = `${stampId.substring(0, 3)}${stampId.substring(11)}`;
-    const sql = `INSERT INTO file (id, url) VALUES ("${fileId},${url}")`;
-    connection.query(sql, (error, results) => {
+    const sql = `INSERT INTO file (id, url) VALUES ("${fileId}","${url}")`;
+    connection.query(sql, (error, results, fields) => {
       if (error) {
         reject(error);
       }
+      console.log(fields);
       resolve(results.insertId);
     });
   });
