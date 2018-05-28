@@ -1,61 +1,48 @@
-import request from 'request';
-
 import connection from './../../sql/connection';
+import referUser from './referUser';
 
-import Hcore from './../../utils/Hcore';
-
-function getUsersByUserName(res, userName) {
-  return new Promise((resolve, reject) => {
+function getUsersByUserName(userName) {
+  return new Promise((resolve) => {
     // 查询数据库
-    request({
-      url: 'http://localhost:3000/user/referUser',
-      method: 'GET',
-      qs: {
-        userName
-      }
-    }, (error, response, body) => {
-      if (!error && response.statusCode === 200) {
-        resolve(body);
-      } else {
-        global.logger.error(error);
-        reject();
-      }
-    });
+    referUser(userName)
+      .then((result) => {
+        resolve(result);
+      });
   });
 }
 
-export default async function (req, res) {
-  const { userName } = req.body;
-  if (req.body && userName) {
-    // 查询用户名是否已经存在，先根据用户名查询用户数据
-    const result = await getUsersByUserName(res, userName);
-    if (!result) {
-      Hcore.sendError({
-        msg: '创建失败',
-        res
-      });
-    } else if (result.length > 0) {
-      Hcore.sendError({
-        msg: '用户名已存在',
-        res
-      });
-    } else {
-      const stampId = `U${Date.now()}`;
-      const userId = `${stampId.substring(0, 3)}${stampId.substring(8)}`;
-      const sql = `INSERT INTO \`user\` (name, user_id) VALUES ("${userName}","U${userId}")`;
-      connection.query(sql, (error) => {
-        if (error) {
-          global.logger.error(error);
-          res.send(false);
+export default async function (userName) {
+  return new Promise(async (resolve) => {
+    try {
+      if (userName) {
+        // 查询用户名是否已经存在，先根据用户名查询用户数据
+        const result = await getUsersByUserName(userName);
+        if (result && result.err) {
+          throw new Error(result.msg);
+        } else if (result.length > 0) {
+          throw new Error('用户名已存在');
         } else {
-          res.send(false);
+          const stampId = `U${Date.now()}`;
+          const userId = `${stampId.substring(0, 2)}${stampId.substring(7)}`;
+          const sql = `INSERT INTO \`user\` (name, user_id) VALUES ("${userName}","${userId}")`;
+          connection.query(sql, (error) => {
+            if (error) {
+              resolve({
+                err: true,
+                msg: error.message
+              });
+            }
+            resolve(true);
+          });
         }
+      } else {
+        throw new Error('用户名不能为空');
+      }
+    } catch (error) {
+      resolve({
+        err: true,
+        msg: error.message
       });
     }
-  } else {
-    Hcore.sendError({
-      msg: '用户名不能为空',
-      res
-    });
-  }
+  });
 }

@@ -18,17 +18,11 @@ const upload = multer({
 function saveToSql(url) {
   return new Promise((resolve) => {
     const stampId = `F${Date.now()}${Math.floor(Math.random() * 10)}`;
-    const fileId = `${stampId.substring(0, 3)}${stampId.substring(11)}`;
+    const fileId = `${stampId.substring(0, 2)}${stampId.substring(10)}`;
     const sql = `INSERT INTO file (id, url) VALUES ("${fileId}","${url}")`;
     connection.query(sql, (error) => {
-      if (error) {
-        resolve({
-          err: true,
-          msg: error
-        });
-      } else {
-        resolve(fileId);
-      }
+      if (error) throw error;
+      resolve(fileId);
     });
   });
 }
@@ -51,12 +45,7 @@ async function saveToDisk(file) {
     // 修改上传的文件名，添加文件类型格式
     try {
       fs.rename(file.path, targetPath, (err) => {
-        if (err) {
-          resolve({
-            err: true,
-            msg: err
-          });
-        }
+        if (err) throw err;
         if (STATUS.rename) {
           resolve(fileId);
         } else {
@@ -82,39 +71,38 @@ async function saveToDisk(file) {
 export default {
   fileUpload(req, res) {
     return new Promise((resolve) => {
-      upload(req, res, async (err) => {
-        if (err) {
-          resolve({
-            err: true,
-            msg: err
-          });
-        }
-        // 获得文件的临时路径,没有特殊指定的话就是/tmp下
-        const { file } = req;
-        if (file) {
-          console.log(456456456465464);
-          const result = await saveToDisk(file);
-          console.log(result);
-          resolve(result);
-        } else {
-          resolve({
-            err: true,
-            msg: '请选择文件'
-          });
-        }
-      });
+      try {
+        upload(req, res, async (err) => {
+          if (err) throw err;
+          // 获得文件的临时路径,没有特殊指定的话就是/tmp下
+          const { file } = req;
+          if (file) {
+            const result = await saveToDisk(file);
+            resolve(result);
+          } else {
+            throw new Error('请选择文件');
+          }
+        });
+      } catch (e) {
+        resolve({
+          err: true,
+          msg: e
+        });
+      }
     });
   },
   getFileUrlById(id) {
-    const sql = `SELECT url FROM file WHERE id=${id}`;
-    connection.query(sql, (error, results) => {
-      if (error) {
-        return {
-          err: true,
-          msg: error
-        };
-      }
-      return results[0] || { url: null };
+    return new Promise((resolve) => {
+      const sql = `SELECT url FROM file WHERE id="${id}"`;
+      connection.query(sql, (error, results) => {
+        if (error) {
+          resolve({
+            err: true,
+            msg: error
+          });
+        }
+        resolve(results[0] || { url: null });
+      });
     });
   }
 };

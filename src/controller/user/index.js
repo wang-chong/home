@@ -6,7 +6,7 @@ import deleteLastUser from './deleteLastUser';
 import updateUser from './updateUser';
 import referUser from './referUser';
 
-export {
+export default {
   createUser,
   allUser,
   deleteUser,

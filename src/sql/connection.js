@@ -6,7 +6,6 @@ const connection = mysql.createConnection({
   password: 'root',
   database: 'vh_user'
 });
-console.log('sql connect');
 connection.connect();
 
 export default connection;

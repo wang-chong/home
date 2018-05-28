@@ -4,7 +4,7 @@ import auth from './../auth/';
 // 核心方法
 import Hcore from './../utils/Hcore';
 // 用户模块接口实现
-import user from './../implement/user/index';
+import user from './../controller/user/index';
 
 const router = express.Router();
 
