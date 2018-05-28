@@ -1,60 +1,48 @@
-const request = require('request')
+import connection from './../../sql/connection';
+import referUser from './referUser';
 
-const connection = require(_src + 'sql/connection')
-const Hcore = require(_src + 'utils/Hcore')
-const referUser = require('./referUser')
-
-function getUsersByUserName (res, userName) {
-  return new Promise((resolve, reject) => {
+function getUsersByUserName(userName) {
+  return new Promise((resolve) => {
     // 查询数据库
-    request({
-      url: 'http://localhost:3000/user/referUser',
-      method: 'GET',
-      qs: {
-        userName: userName
-      }
-    }, (error, response, body) => {
-      if (!error && response.statusCode === 200) {
-        resolve(body)
-      } else {
-        Hcore.sendError({
-          msg: '查询出错',
-          res: res
-        })
-      }
-    })
-  })
+    referUser(userName)
+      .then((result) => {
+        resolve(result);
+      });
+  });
 }
 
-module.exports = function (req, res) {
-  const userName = req.body.userName
-  if (req.body && userName) {
-    // 查询用户名是否已经存在，先根据用户名查询用户数据
-    getUsersByUserName(res, userName)
-    .then((results) => {
-      if (results.length > 0) {
-        Hcore.sendError({
-          msg: '用户名已存在',
-          res: res
-        })
+export default async function (userName) {
+  return new Promise(async (resolve) => {
+    try {
+      if (userName) {
+        // 查询用户名是否已经存在，先根据用户名查询用户数据
+        const result = await getUsersByUserName(userName);
+        if (result && result.err) {
+          throw new Error(result.msg);
+        } else if (result.length > 0) {
+          throw new Error('用户名已存在');
+        } else {
+          const stampId = `U${Date.now()}`;
+          const userId = `${stampId.substring(0, 2)}${stampId.substring(7)}`;
+          const sql = `INSERT INTO \`user\` (name, user_id) VALUES ("${userName}","${userId}")`;
+          connection.query(sql, (error) => {
+            if (error) {
+              resolve({
+                err: true,
+                msg: error.message
+              });
+            }
+            resolve(true);
+          });
+        }
       } else {
-        var sql = `INSERT INTO \`user\` (name, user_id) VALUES ("${userName}","U${new Date().getTime()}")`
-        connection.query(sql, function (error, results, fields) {
-          if (error) throw error
-          res.send(true)
-        })
+        throw new Error('用户名不能为空');
       }
-    })
-    .catch((error) => {
-      Hcore.sendError({
-        msg: '创建失败',
-        res: res
-      })
-    })
-  } else {
-    Hcore.sendError({
-      msg: '用户名不能为空',
-      res: res
-    })
-  }
+    } catch (error) {
+      resolve({
+        err: true,
+        msg: error.message
+      });
+    }
+  });
 }

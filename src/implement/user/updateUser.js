@@ -1,14 +1,28 @@
-const connection = require(_src + 'sql/connection')
+import connection from './../../sql/connection';
 
 // 更新指定用户的删除标志位为1，软删除
-module.exports = function (req, res) {
-  if (req.body.userName) {
-    var sql = 'UPDATE `user` set `delete`=1 where `name`="' + req.body.userName + '"'
-    connection.query(sql, function (error, results, fields) {
-      if (error) throw error
-      res.send(true)
-    })
-  } else {
-    throw new Error('没有此用户')
-  }
+export default function (userName) {
+  return new Promise((resolve) => {
+    try {
+      if (userName) {
+        const sql = `UPDATE \`user\` set \`delete\`=1 where \`name\`="${userName}"`;
+        connection.query(sql, (e) => {
+          if (e) {
+            resolve({
+              err: true,
+              msg: e.message
+            });
+          }
+          resolve(true);
+        });
+      } else {
+        throw new Error('没有此用户');
+      }
+    } catch (e) {
+      resolve({
+        err: true,
+        msg: e.message
+      });
+    }
+  });
 }

@@ -1,19 +1,22 @@
-const express = require('express')
-const router = express.Router()
+import express from 'express';
 
-router.use(function timelog(req, res, next) {
-	console.log('Time is ' + Date.now());
-	next();
-})
+const router = express.Router();
 
-router.get('/', function (req, res) {
-	console.log('1111');
-	res.send({a: '1111'});
-})
+router.use((req, res, next) => {
+  console.log(`Time is ${Date.now()}`);
+  next();
+});
 
-router.get('/test', function (req, res) {
-	console.log('test');
-	res.send('test');
-})
+router.get('/', (req, res) => {
+  console.log('1111');
+  res.send({
+    a: '1111'
+  });
+});
 
-module.exports = router
+router.get('/test', (req, res) => {
+  console.log('test');
+  res.send('test');
+});
+
+export default router;

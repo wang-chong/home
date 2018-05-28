@@ -1,9 +1,16 @@
-const connection = require(_src + 'sql/connection')
+import connection from './../../sql/connection';
 
-module.exports = function (req, res) {
-  var sql = 'SELECT `name` AS userName,`user_id` AS userId FROM `user` where `delete`=0'
-  connection.query(sql, function (error, results, fields) {
-    if (error) throw error
-    res.send(results)
-  })
+export default function () {
+  const sql = 'SELECT `name` AS userName,`user_id` AS userId FROM `user` where `delete`=0';
+  return new Promise((resolve) => {
+    connection.query(sql, (e, results) => {
+      if (e) {
+        resolve({
+          err: true,
+          msg: e.message
+        });
+      }
+      resolve(results);
+    });
+  });
 }

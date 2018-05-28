@@ -1,9 +1,16 @@
-const connection = require(_src + 'sql/connection')
+import connection from './../../sql/connection';
 
-module.exports = function (req, res) {
-  var sql = 'DELETE FROM `user` ORDER BY create_time desc LIMIT 1'
-  connection.query(sql, function (error, results, fields) {
-    if (error) throw error;
-    res.send(true);
-  })
+export default function () {
+  return new Promise((resolve) => {
+    const sql = 'DELETE FROM `user` ORDER BY create_time1 desc LIMIT 1';
+    connection.query(sql, (error) => {
+      if (error) {
+        resolve({
+          err: true,
+          msg: error.message
+        });
+      }
+      resolve(true);
+    });
+  });
 }
