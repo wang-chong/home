@@ -60,3 +60,5 @@ typings/
 # public folder
 public/
 
+.vscode
+
