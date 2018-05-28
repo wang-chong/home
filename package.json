@@ -23,6 +23,7 @@
   "homepage": "https://github.com/wang-chong/home#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "bunyan": "^1.8.12",
     "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
     "fs": "0.0.1-security",

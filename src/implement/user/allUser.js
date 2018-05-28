@@ -5,7 +5,7 @@ function getAllUser() {
   return new Promise((resolve) => {
     connection.query(sql, (error, results) => {
       if (error) {
-        console.log(error);
+        global.logger.error(error);
         resolve('查询出错');
       }
       resolve(results);

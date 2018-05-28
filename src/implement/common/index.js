@@ -1,6 +1,5 @@
 import file from './file';
 
-export default {
-  fileUpload: file.upload,
-  fileDownload: file.download
-};
+const { fileUpload, getFileUrlById } = file;
+
+export { fileUpload, getFileUrlById };

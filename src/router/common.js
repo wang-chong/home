@@ -1,7 +1,6 @@
 import express from 'express';
-
-// common模块文件接口实现
-import common from './../implement/common/';
+// common模块接口实现
+import common from './../controller/common/';
 
 const router = express.Router();
 
@@ -9,6 +8,6 @@ const router = express.Router();
 router.post('/file/upload', common.fileUpload);
 
 // 根据上传文件时的id去查询文件信息
-router.get('/file/download/:id', common.fileDownload);
+router.get('/file/download/:id', common.getFileUrlById);
 
 export default router;
