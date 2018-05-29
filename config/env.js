@@ -13,8 +13,8 @@ const redisPass = 'root@2016';
 // session加密密匙
 const sessionSecret = 'ff@2016';
 // 服务的端口
-const servePort = '3000';
-export default {
+const servePort = 3000;
+export {
   env,
   sessionExpire,
   domain,
