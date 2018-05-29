@@ -8,7 +8,7 @@ import connection from './../../sql/connection';
 // 项目文件保存的文件夹地址，相对于app.js
 const folderPath = '/public/files/';
 // 文件保存的磁盘地址
-const savePath = process.cwd() + folderPath;
+const savePath = global.src + folderPath;
 
 const upload = multer({
   dest: savePath
@@ -21,7 +21,12 @@ function saveToSql(url) {
     const fileId = `${stampId.substring(0, 2)}${stampId.substring(10)}`;
     const sql = `INSERT INTO file (id, url) VALUES ("${fileId}","${url}")`;
     connection.query(sql, (error) => {
-      if (error) throw error;
+      if (error) {
+        resolve({
+          err: true,
+          msg: error
+        });
+      }
       resolve(fileId);
     });
   });
@@ -53,6 +58,9 @@ async function saveToDisk(file) {
         }
       });
       const result = await saveToSql(url);
+      if (result && result.err) {
+        resolve(result);
+      }
       fileId = result;
       if (STATUS.rename) {
         resolve(result);
