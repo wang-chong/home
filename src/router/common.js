@@ -8,6 +8,8 @@ const router = express.Router();
 router.post('/user/login', common.login);
 // 用户注册
 router.post('/user/register', common.register);
+// 用户登出
+router.get('/user/logout', common.logout);
 
 // 上传单个文件
 router.post('/file/upload', common.fileUpload);

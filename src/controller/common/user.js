@@ -23,5 +23,17 @@ export default {
     const result = await userRegister(userName, password);
     if (result && result.err) global.logger.error(result);
     Hcore.responseUser(res, result);
+  },
+  logout(req, res) {
+    req.session.destroy((err) => {
+      let result = {};
+      if (err) {
+        result.msg = err;
+        result.err = true;
+      } else {
+        result = true;
+      }
+      Hcore.responseUser(res, result);
+    });
   }
 };
