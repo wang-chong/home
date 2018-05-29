@@ -1,4 +1,25 @@
 const env = 'production';
+// session过期时间
 const sessionExpire = 30 * 60; // 30分钟
+// 网站域名
 const domain = 'http://www.wchong.com';
-export default { env, sessionExpire, domain };
+// redis服务器的ip
+const redisIp = '127.0.0.1';
+// redis服务器的端口号
+const redisPort = '6379';
+// redis密码
+const redisPass = 'root@2016';
+// session加密密匙
+const sessionSecret = 'ff@2016';
+// 服务的端口
+const servePort = '3000';
+export default {
+  env,
+  sessionExpire,
+  domain,
+  redisIp,
+  redisPort,
+  redisPass,
+  sessionSecret,
+  servePort
+};

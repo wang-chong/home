@@ -14,7 +14,7 @@ import user from './src/router/user';
 // common模块
 import common from './src/router/common';
 // 加载配置项
-import { sessionExpire } from './config/env';
+import { sessionExpire, redisIp, redisPass, redisPort, sessionSecret, servePort } from './config/env';
 // 加载全局变量
 import './src/global/';
 
@@ -31,16 +31,16 @@ app.use(cookieParser());
 const Store = redisStore(session);
 // session基本设置
 const option = {
-  host: '127.0.0.1',
-  port: '6379',
-  pass: 'root2016',
+  host: redisIp,
+  port: redisPort,
+  pass: redisPass,
   ttl: sessionExpire
 };
 // session
 app.use(session({
   name: 'sid',
   store: new Store(option),
-  secret: 'root2016',
+  secret: sessionSecret,
   cookie: { maxAge: sessionExpire * 1000 },
   resave: false,
   saveUninitialized: true
@@ -52,8 +52,8 @@ app.use(session({
 app.use('/static', express.static('static'));
 app.use('/public', express.static('public'));
 
-app.listen(3000, () => {
-  console.log('NodeApp is listening on port 3000!');
+app.listen(servePort, () => {
+  console.log('NodeApp is serving now!');
 });
 
 app.use('/api/user', user);
