@@ -11,10 +11,10 @@ function getUsersByUserName(userName) {
   });
 }
 
-export default async function (userName) {
+export default async function (userName, password) {
   return new Promise(async (resolve) => {
     try {
-      if (userName) {
+      if (userName && password) {
         // 查询用户名是否已经存在，先根据用户名查询用户数据
         const result = await getUsersByUserName(userName);
         if (result && result.err) {
@@ -24,7 +24,7 @@ export default async function (userName) {
         } else {
           const stampId = `U${Date.now()}`;
           const userId = `${stampId.substring(0, 2)}${stampId.substring(7)}`;
-          const sql = `INSERT INTO \`user\` (name, user_id) VALUES ("${userName}","${userId}")`;
+          const sql = `INSERT INTO \`user\` (name, user_id, password) VALUES ("${userName}","${userId}","${password}")`;
           connection.query(sql, (error) => {
             if (error) {
               resolve({
@@ -36,7 +36,7 @@ export default async function (userName) {
           });
         }
       } else {
-        throw new Error('用户名不能为空');
+        throw new Error('用户名/密码不能为空');
       }
     } catch (error) {
       resolve({

@@ -4,6 +4,9 @@ import common from './../controller/common/';
 
 const router = express.Router();
 
+// 用户登录
+router.post('/login', common.login);
+
 // 上传单个文件
 router.post('/file/upload', common.fileUpload);
 
