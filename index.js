@@ -13,7 +13,9 @@ import redisStore from 'connect-redis';
 import user from './src/router/user';
 // common模块
 import common from './src/router/common';
-// 加载全局配置
+// 加载配置项
+import { sessionExpire } from './config/env';
+// 加载全局变量
 import './src/global/';
 
 const app = express();
@@ -32,14 +34,14 @@ const option = {
   host: '127.0.0.1',
   port: '6379',
   pass: 'root2016',
-  ttl: 60 * 1 //  session的有效期为1分钟(秒)
+  ttl: sessionExpire
 };
 // session
 app.use(session({
   name: 'sid',
   store: new Store(option),
   secret: 'root2016',
-  cookie: { maxAge: 30000 },
+  cookie: { maxAge: sessionExpire * 1000 },
   resave: false,
   saveUninitialized: true
 }));

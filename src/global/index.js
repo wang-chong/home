@@ -1,6 +1,6 @@
 import bunyan from 'bunyan';
 import path from 'path';
-import env from './../../config/env';
+import { domain } from './../../config/env';
 
 const logger = bunyan.createLogger({
   name: 'node-home',
@@ -35,16 +35,7 @@ const logger = bunyan.createLogger({
   ]
 });
 
-const envObj = {
-  dev: {
-    domain: 'http://localhost:3000'
-  },
-  production: {
-    domain: 'http://www.wchong.com'
-  }
-};
-
 // 全局变量，指向src目录
 global.src = `${process.cwd()}/src/`;
-global.domain = envObj[env].domain;
+global.domain = domain;
 global.logger = logger;
