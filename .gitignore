@@ -59,7 +59,7 @@ typings/
 
 # public folder
 public/
-
+.vscode
 # dist folder
 dist/
 !dist/*.zip
