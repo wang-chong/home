@@ -7,7 +7,9 @@
 // };
 
 const responseUser = (res, result) => {
-  if (result && result.err) {
+  if (result && result.status) {
+    res.status(result.status).send(result);
+  } else if (result && result.err) {
     res.status(500).send(result);
   } else {
     res.status(200).send(result);
