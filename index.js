@@ -10,9 +10,7 @@ import user from './src/router/user';
 // common模块
 import common from './src/router/common';
 // 加载全局配置
-import globalConfig from './src/global/';
-// 初始化全局变量
-globalConfig();
+import './src/global/';
 
 const app = express();
 // 解析post请求的数据

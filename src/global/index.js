@@ -44,9 +44,7 @@ const envObj = {
   }
 };
 
-export default function globalConfig() {
-  // 全局变量，指向src目录
-  global.src = `${process.cwd()}/src/`;
-  global.domain = envObj[env].domain;
-  global.logger = logger;
-}
+// 全局变量，指向src目录
+global.src = `${process.cwd()}/src/`;
+global.domain = envObj[env].domain;
+global.logger = logger;
