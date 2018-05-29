@@ -14,7 +14,7 @@ router.all('*', (req, res, next) => {
     next();
   } else {
     Hcore.responseUser(res, {
-      res,
+      status: 401,
       msg: '登录信息已过期'
     });
   }
