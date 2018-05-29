@@ -1,8 +1,9 @@
 import file from './file';
-import userLogin from './login';
+import user from './user';
 
 export default {
-  login: userLogin,
+  login: user.login,
+  register: user.register,
   fileUpload: file.upload,
   getFileUrlById: file.download
 };

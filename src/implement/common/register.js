@@ -1,5 +1,5 @@
 import connection from './../../sql/connection';
-import referUser from './referUser';
+import referUser from './../user/referUser';
 
 function getUsersByUserName(userName) {
   return new Promise((resolve) => {

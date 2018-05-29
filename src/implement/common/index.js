@@ -1,6 +1,7 @@
 import file from './file';
-import login from './login';
+import userLogin from './login';
+import userRegister from './register';
 
 const { fileUpload, getFileUrlById } = file;
 
-export { fileUpload, getFileUrlById, login };
+export { fileUpload, getFileUrlById, userLogin, userRegister };

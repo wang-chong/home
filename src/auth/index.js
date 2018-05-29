@@ -1,6 +1,6 @@
-export default function (cookie) {
-  // 判断是否存在tk，不存在tk验证失败
-  if (!(cookie && cookie.tk)) {
+export default function (req) {
+  // 判断session是否过期
+  if (req.session && req.session.userId) {
     return true;
   }
   return false;

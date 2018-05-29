@@ -10,21 +10,18 @@ const router = express.Router();
 
 router.all('*', (req, res, next) => {
   // 鉴权
-  if (auth(req.cookies)) {
+  if (auth(req)) {
     next();
   } else {
-    Hcore.sendError({
+    Hcore.responseUser(res, {
       res,
-      msg: '没有tk或者tk过期'
+      msg: '登录信息已过期'
     });
   }
 });
 
 // 获取所有用户的信息
 router.get('/allUser', user.allUser);
-
-// 创建一个用户
-router.post('/createUser', user.createUser);
 
 // 删除一个指定的用户
 router.get('/deleteUser', user.deleteUser);

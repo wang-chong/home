@@ -4,6 +4,10 @@ import bodyParser from 'body-parser';
 // 转换请求带来的cookie为对象
 import cookieParser from 'cookie-parser';
 import express from 'express';
+// session模块
+import session from 'express-session';
+// 连接redis
+import redisStore from 'connect-redis';
 // 各个模块加载
 // user模块
 import user from './src/router/user';
@@ -21,6 +25,24 @@ app.use(bodyParser.json());
 
 // 转换请求带来的cookie为对象
 app.use(cookieParser());
+// 创建redis-session
+const Store = redisStore(session);
+// session基本设置
+const option = {
+  host: '127.0.0.1',
+  port: '6379',
+  pass: 'root2016',
+  ttl: 60 * 1 //  session的有效期为1分钟(秒)
+};
+// session
+app.use(session({
+  name: 'sid',
+  store: new Store(option),
+  secret: 'root2016',
+  cookie: { maxAge: 30000 },
+  resave: false,
+  saveUninitialized: true
+}));
 
 // 设置静态文件的访问路径
 // static映射到static目录,如果不做映射，那么访问的地址中将不再需要static这个路径
