@@ -14,6 +14,12 @@ const redisPass = 'root@2016';
 const sessionSecret = 'ff@2016';
 // 服务的端口
 const servePort = 3000;
+// 数据库名
+const sqlName = 'root';
+// 数据库密码
+const sqlPw = 'root';
+// 数据库地址
+const sqlHost = 'localhost';
 export {
   env,
   sessionExpire,
@@ -22,5 +28,8 @@ export {
   redisPort,
   redisPass,
   sessionSecret,
-  servePort
+  servePort,
+  sqlName,
+  sqlPw,
+  sqlHost
 };
