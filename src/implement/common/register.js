@@ -1,3 +1,4 @@
+import encodeText from './encodeText';
 import connection from './../../sql/connection';
 import referUser from './../user/referUser';
 
@@ -22,9 +23,10 @@ export default async function (userName, password) {
         } else if (result.length > 0) {
           throw new Error('用户名已存在');
         } else {
+          const pw = encodeText(password);
           const stampId = `U${Date.now()}`;
           const userId = `${stampId.substring(0, 2)}${stampId.substring(7)}`;
-          const sql = `INSERT INTO \`user\` (name, user_id, password) VALUES ("${userName}","${userId}","${password}")`;
+          const sql = `INSERT INTO \`user\` (name, user_id, password) VALUES ("${userName}","${userId}","${pw}")`;
           connection.query(sql, (error) => {
             if (error) {
               resolve({

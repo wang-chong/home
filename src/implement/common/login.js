@@ -1,5 +1,6 @@
 import connection from './../../sql/connection';
 import referUser from './../user/referUser';
+import encodeText from './encodeText';
 
 function getUsersByUserName(userName) {
   return new Promise((resolve) => {
@@ -13,7 +14,8 @@ function getUsersByUserName(userName) {
 
 function checkUserNameWithPassword(userName, password) {
   return new Promise((resolve) => {
-    const sql = `SELECT user_id AS userId FROM \`user\` WHERE \`name\`="${userName}" AND \`password\`="${password}"`;
+    const pw = encodeText(password);
+    const sql = `SELECT user_id AS userId FROM \`user\` WHERE \`name\`="${userName}" AND \`password\`="${pw}"`;
     connection.query(sql, (error, result) => {
       if (error) {
         resolve({
