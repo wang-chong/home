@@ -1,6 +1,8 @@
 // 移动文件需要使用fs模块
 import fs from 'fs';
 import multer from 'multer';
+// 多个文件打包成zip文件
+import JSZip from 'jszip';
 // 连接数据库
 import connection from './../../sql/connection';
 
@@ -111,6 +113,16 @@ export default {
         }
         resolve(results[0] || { url: null });
       });
+    });
+  },
+  downloadFileZip(files) {
+    if (!Array.isArray(files)) {
+      return '参数必须为数组';
+    }
+    const zip = new JSZip();
+    files.map(file => zip.file(file.name, fs.readFileSync(file.path)));
+    return zip.generateAsync({
+      type: 'nodebuffer'
     });
   }
 };

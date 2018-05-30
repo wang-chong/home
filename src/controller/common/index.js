@@ -6,5 +6,6 @@ export default {
   register: user.register,
   logout: user.logout,
   fileUpload: file.upload,
-  getFileUrlById: file.download
+  getFileUrlById: file.download,
+  downloadZip: file.downloadZip
 };

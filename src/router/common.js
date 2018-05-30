@@ -17,4 +17,7 @@ router.post('/file/upload', common.fileUpload);
 // 根据上传文件时的id去查询文件信息
 router.get('/file/download/:id', common.getFileUrlById);
 
+// 根据上传文件时的id去查询文件信息
+router.get('/file/downloadZip', common.downloadZip);
+
 export default router;
