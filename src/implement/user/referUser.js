@@ -12,6 +12,7 @@ export default function (userName) {
             err: true,
             msg: e.message
           });
+          return;
         }
         resolve(results);
       });

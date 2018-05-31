@@ -8,6 +8,7 @@ export default {
     const result = await userLogin(userName, password);
     if (result && result.err) {
       global.logger.error(result);
+      Hcore.responseUser(res, result);
     } else if (result.length === 0) {
       Hcore.responseUser(res, {
         err: true,
