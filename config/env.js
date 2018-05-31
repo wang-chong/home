@@ -1,7 +1,7 @@
 // 在此处添加配置，必须在production文件同步添加一项
 const env = 'dev';
 // session过期时间
-const sessionExpire = 1 * 60; // 1分钟
+const sessionExpire = 30 * 60; // 30分钟
 // 网站域名
 const domain = 'http://localhost:3000';
 // redis服务器的ip

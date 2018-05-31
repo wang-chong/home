@@ -13,6 +13,8 @@ import redisStore from 'connect-redis';
 import user from './src/router/user';
 // common模块
 import common from './src/router/common';
+// 权限控制模块
+import requireAuth from './src/auth/index';
 // 加载配置项
 import { sessionExpire, redisIp, redisPass, redisPort, sessionSecret, servePort } from './config/env';
 // 加载全局变量
@@ -56,5 +58,6 @@ app.listen(servePort, () => {
   console.log('NodeApp is serving now!');
 });
 
-app.use('/api/user', user);
+// 路由到各个模块,且有权限控制
+app.use('/api/user', requireAuth, user);
 app.use('/api/common', common);

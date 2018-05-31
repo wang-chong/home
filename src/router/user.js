@@ -1,24 +1,8 @@
 import express from 'express';
-// 鉴权
-import auth from './../auth/';
-// 核心方法
-import Hcore from './../utils/Hcore';
 // 用户模块接口实现
 import user from './../controller/user/index';
 
 const router = express.Router();
-
-router.all('*', (req, res, next) => {
-  // 鉴权
-  if (auth(req)) {
-    next();
-  } else {
-    Hcore.responseUser(res, {
-      status: 401,
-      msg: '登录信息已过期'
-    });
-  }
-});
 
 // 获取所有用户的信息
 router.get('/allUser', user.allUser);
