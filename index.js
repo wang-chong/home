@@ -54,10 +54,13 @@ app.use(session({
 app.use('/static', express.static('static'));
 app.use('/public', express.static('public'));
 
-app.listen(servePort, () => {
-  console.log('NodeApp is serving now!');
-});
-
 // 路由到各个模块,且有权限控制
 app.use('/api/user', requireAuth, user);
 app.use('/api/common', common);
+app.use('/', (req, res) => {
+  res.redirect(`${req.headers.host}/static/404.png`);
+});
+
+app.listen(servePort, () => {
+  console.log('NodeApp is serving now!');
+});
