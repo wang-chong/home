@@ -4,4 +4,4 @@ import userRegister from './register';
 
 const { fileUpload, getFileUrlById, downloadFileZip } = file;
 
-export { fileUpload, getFileUrlById, userLogin, userRegister, downloadFileZip };
+export { userLogin, userRegister, fileUpload, getFileUrlById, downloadFileZip };

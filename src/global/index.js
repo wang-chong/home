@@ -37,5 +37,6 @@ const logger = bunyan.createLogger({
 
 // 全局变量，指向src目录
 global.src = path.join(__dirname, '../../', 'src');
+global.public = path.join(__dirname, '../../', 'public');
 global.domain = domain;
 global.logger = logger;

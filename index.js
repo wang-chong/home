@@ -8,6 +8,8 @@ import express from 'express';
 import session from 'express-session';
 // 连接redis
 import redisStore from 'connect-redis';
+// 加载全局变量
+import './src/global/';
 // 各个模块加载
 // user模块
 import user from './src/router/user';
@@ -17,8 +19,6 @@ import common from './src/router/common';
 import requireAuth from './src/auth/index';
 // 加载配置项
 import { sessionExpire, redisIp, redisPass, redisPort, sessionSecret, servePort } from './config/env';
-// 加载全局变量
-import './src/global/';
 
 const app = express();
 // 解析post请求的数据

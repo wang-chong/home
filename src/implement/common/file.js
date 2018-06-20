@@ -8,10 +8,9 @@ import connection from './../../sql/connection';
 
 // 处理文件上传
 // 项目文件保存的文件夹地址，相对于app.js
-const folderPath = '/public/files/';
+const folderPath = '/files/';
 // 文件保存的磁盘地址
-const savePath = global.src + folderPath;
-
+const savePath = global.public + folderPath;
 const upload = multer({
   dest: savePath
 }).single('file');
